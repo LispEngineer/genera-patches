@@ -1,0 +1,38 @@
+ON LAPTOP
+---------
+
+Create DIRECTORY for dump using name of server
+
+chmod 777 dump DIRECTORY
+
+service NetworkManager stop
+
+ifconfig eth0 down
+ifconfig eth0 inet 128.81.xxx.230 up
+
+edit /etc/exports to change XL1201 IP address
+
+start NFS
+
+
+ON XL1201
+---------
+
+Command: (si:login-to-sys-host)
+
+Command: Load File FEP7:>patches>tape-simulation.ibin.newest into package USER (really COMMON-LISP-USER)
+
+Command: (lmfs:make-more-file-buffers 512 512)
+547
+Command: (lmfs:make-file-buffers-be-wired)
+T
+
+Command: (neti::make-distribution-host "laptop" :internet-address "128.81.xxx.230" :system-type :unix42)
+
+LMFS level 2
+Complete Dump
+Tape Reel ID: SSYYMMDD (max 8 characters; SS=server initials)
+Tape Drive Spec: host=distribution|laptop,simdir=distribution|laptop:/symbolics-servers/DIRECTORY/SSYYMMDD/
+Dump Deleted Files: YES
+Append to Tape: NO
+Tape When Done: LEAVE
